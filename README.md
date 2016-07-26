@@ -1,11 +1,14 @@
-# react-loader-factory
+# react-loader-factory-immutable
 
-A factory for producing Redux-driven loading screens
+A factory for producing Redux-driven loading screens. (ImmutableJS version.)
+
+*For a version that doesn't use ImmutableJS, check out
+[react-loader-factory](https://www.npmjs.com/package/react-loader-factory).*
 
 ## Example
 
 ```
-npm install --save react-loader-factory
+npm install --save react-loader-factory-immutable
 ```
 
 Say you have an asynchronous request that provides data through Redux to a pure
