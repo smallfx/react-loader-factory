@@ -1,6 +1,9 @@
 # react-loader-factory
 
-A factory for producing Redux-driven loading screens
+A factory for producing Redux-driven loading screens.
+
+*For a version that incorporates ImmutableJS, see
+[react-loader-factory-immutable](https://www.npmjs.com/package/react-loader-factory-immutable).*
 
 ## Example
 
