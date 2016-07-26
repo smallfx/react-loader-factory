@@ -94,6 +94,6 @@ convenience.
 ## Things like this
 
 - [react-loader](https://github.com/TheCognizantFoundry/react-loader): Stateful
-  version without any particular connection to Redux.
+  single component version without any particular connection to Redux.
 - [React Higher Order Components in depth](https://medium.com/@franleplant/react-higher-order-components-in-depth-cf9032ee6c3e#.nwgftq1ft):
   My reference for HOCs.
