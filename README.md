@@ -4,6 +4,10 @@ A factory for producing Redux-driven loading screens
 
 ## Example
 
+```
+npm install --save react-loader-factory
+```
+
 Say you have an asynchronous request that provides data through Redux to a pure
 functional component. You'd like to display a loader while waiting for the
 request, but you don't want to pollute your beautiful pure function.
