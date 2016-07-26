@@ -1,7 +1,7 @@
 {
-  "name": "react-loader-factory",
+  "name": "react-loader-factory-immutable",
   "version": "1.0.0",
-  "description": "A factory for creating custom functional react loading screen components.",
+  "description": "A factory for creating custom functional react loading screen components (immutableJS version).",
   "main": "./dist/index.js",
   "scripts": {
     "prepublish": "npm run build",
@@ -35,5 +35,8 @@
     "babel-cli": "^6.11.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1"
+  },
+  "peerDependencies": {
+    "immutable": "^3.8.1"
   }
 }

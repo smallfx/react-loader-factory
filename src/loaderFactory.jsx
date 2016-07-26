@@ -6,7 +6,7 @@ export default function loaderFactory(actionsList, requestStates) {
   return function(WrappedComponent) {
 
     function factoryInjector(state) {
-      return { activeRequests: state.activeRequests };
+      return { activeRequests: state.get('activeRequests').toJS() };
     }
 
     class Loader extends React.Component {

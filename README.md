@@ -39,9 +39,9 @@ You'll also need a reducer that tracks which requests are active. Something like
 this:
 
 ```js
-export function activeRequests(state = [], action) {
-  const newState = state.slice();
+import Immutable from 'immutable';
 
+export function activeRequests(state = Immutable.List([]), action) {
   // regex that tests for an API action string ending with _REQUEST
   const reqReg = new RegExp(/^[A-Z]+\_REQUEST$/g);
   // regex that tests for a API action string ending with _SUCCESS
@@ -49,7 +49,7 @@ export function activeRequests(state = [], action) {
 
   // if a _REQUEST comes in, add it to the activeRequests list
   if (reqReg.test(action.type)) {
-    newState.push(action.type);
+    return state.push(action.type);
   }
 
   // if a _SUCCESS comes in, delete its corresponding _REQUEST
@@ -58,11 +58,11 @@ export function activeRequests(state = [], action) {
     const deleteInd = state.indexOf(reqType);
 
     if (deleteInd !== -1) {
-      newState.splice(deleteInd, 1);
+      return state.delete(deleteInd);
     }
   }
 
-  return newState;
+  return state;
 }
 ```
 
