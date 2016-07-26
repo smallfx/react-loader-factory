@@ -35,7 +35,7 @@ export default function loaderFactory(actionsList, requestStates) {
         const Throbber = (this.props.throbber || function(props) {
           return (
             <div
-              className={ this.props.throbberClass || "loader layout--flex" }
+              className={ props.throbberClass || "loader layout--flex" }
             >
              <h1>Loading...</h1>
             </div>
