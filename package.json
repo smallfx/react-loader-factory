@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/talexand/react-loader-factory/issues"
   },
-  "homepage": "https://github.com/talexand/react-loader-factory#readme",
+  "homepage": "https://github.com/talexand/react-loader-factory/tree/immutable#readme",
   "dependencies": {
     "react": "^15.2.1",
     "react-redux": "^4.4.5"
