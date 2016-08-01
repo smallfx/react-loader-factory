@@ -1,5 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import equal from 'deep-equal';
+
+function deepIncludes(arr, item) {
+  return arr.some(el => equal(el, item));
+}
 
 export default function loaderFactory(actionsList, requestStates) {
 
@@ -20,7 +25,7 @@ export default function loaderFactory(actionsList, requestStates) {
         const { activeRequests, dispatch } = this.props;
         // call actions, but throttle if repeating
         actionsList.forEach(action => {
-          if (!this.currentRequests.deepIncludes(action)) {
+          if (!deepIncludes(this.currentRequests,action)) {
             this.currentRequests.push(action);
             dispatch(action);
           }
