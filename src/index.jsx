@@ -1,5 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import 'equal' from 'deep-equal';
+
+function deepIncludes(arr, item) {
+  return arr.some(el => equal(el, item));
+}
+
+function shallowDesymbolize(obj) {
+  if (obj instanceof Array) {
+    return obj.map((el) => shallowDesymbolize(el));
+  } else if (obj instanceof Object) {
+    const res = {};
+    Object.getOwnPropSymbols(obj).forEach((key) => {
+      const desymbolizedKey = ('__dsym__').concat(String(key));
+      res[desymbolizedKey] = obj[key];
+    });
+    return res;
+  }
+  return obj;
+}
 
 export default function loaderFactory(actionsList, requestStates) {
 
@@ -20,7 +39,8 @@ export default function loaderFactory(actionsList, requestStates) {
         const { activeRequests, dispatch } = this.props;
         // call actions, but throttle if repeating
         actionsList.forEach(action => {
-          if (!this.currentRequests.deepIncludes(action)) {
+          if (!deepIncludes(shallowDesymbolize(this.currentRequests),
+                            shallowDesymbolize(action))) {
             this.currentRequests.push(action);
             dispatch(action);
           }

@@ -1,6 +1,6 @@
 {
   "name": "react-loader-factory",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A factory for creating custom functional react loading screen components.",
   "main": "./dist/index.js",
   "scripts": {
@@ -25,8 +25,10 @@
   },
   "homepage": "https://github.com/talexand/react-loader-factory#readme",
   "dependencies": {
+    "deep-equal": "^1.0.1",
     "react": "^15.2.1",
-    "react-redux": "^4.4.5"
+    "react-redux": "^4.4.5",
+    
   },
   "babel": {
     "presets": ["es2015", "react"]
