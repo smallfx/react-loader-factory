@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import 'equal' from 'deep-equal';
+import equal from 'deep-equal';
 
 function deepIncludes(arr, item) {
   return arr.some(el => equal(el, item));
