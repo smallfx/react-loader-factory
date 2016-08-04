@@ -6,6 +6,20 @@ function deepIncludes(arr, item) {
   return arr.some(el => equal(el, item));
 }
 
+function shallowDesymbolize(obj) {
+  if (obj instanceof Array) {
+    return obj.map((el) => shallowDesymbolize(el));
+  } else if (obj instanceof Object) {
+    const res = {};
+    Object.getOwnPropSymbols(obj).forEach((key) => {
+      const desymbolizedKey = ('__dsym__').concat(String(key));
+      res[desymbolizedKey] = obj[key];
+    });
+    return res;
+  }
+  return obj;
+}
+
 export default function loaderFactory(actionsList, requestStates) {
 
   return function(WrappedComponent) {
@@ -20,26 +34,29 @@ export default function loaderFactory(actionsList, requestStates) {
 
         this.currentRequests = [];
       }
-      
+
       render() {
         const { activeRequests, dispatch } = this.props;
         // call actions, but throttle if repeating
         actionsList.forEach(action => {
-          if (!deepIncludes(this.currentRequests,action)) {
+          if (!deepIncludes(shallowDesymbolize(this.currentRequests),
+                            shallowDesymbolize(action))) {
             this.currentRequests.push(action);
             dispatch(action);
           }
         });
 
         // monitor given request states
-        if (activeRequests instanceof Array) {
-          const requestsBusy = requestStates
-                  .some(state => activeRequests.includes(state));
-        } else if (activeRequests instanceof Object) { // works as else if
-          const requestsBusy = requestStates
-                  .some(state => Object.keys(activeRequests).includes(state));
-        }
-        
+        const requestsBusy = (() => {
+          if (activeRequests instanceof Array) {
+            return requestStates
+                    .some(state => activeRequests.includes(state));
+          } else if (activeRequests instanceof Object) { // works as else if
+            return requestStates
+                    .some(state => Object.keys(activeRequests).includes(state));
+          }
+        })();
+
         // return function that takes a component which will be rendered when
         // none of the request states is active
         const Throbber = (this.props.throbber || function(props) {
