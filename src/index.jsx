@@ -11,7 +11,7 @@ function shallowDesymbolize(obj) {
     return obj.map((el) => shallowDesymbolize(el));
   } else if (obj instanceof Object) {
     const res = {};
-    Object.getOwnPropSymbols(obj).forEach((key) => {
+    Object.getOwnPropertySymbols(obj).forEach((key) => {
       const desymbolizedKey = ('__dsym__').concat(String(key));
       res[desymbolizedKey] = obj[key];
     });
