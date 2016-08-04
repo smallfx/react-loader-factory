@@ -70,7 +70,7 @@ export default function loaderFactory(actionsList, requestStates) {
             <div
               className={ props.throbberClass || "loader layout--flex" }
             >
-             <h1>Loading...</h1>
+              <h1>Loading...</h1>
             </div>
           );
         });
@@ -82,12 +82,12 @@ export default function loaderFactory(actionsList, requestStates) {
           return (<Throbber />);
         } else {
           return (
-            <WrappedComponent {...this.props} />
+            <WrappedComponent { ...this.props } />
           );
         }
       }
     }
-    
+
     return connect(factoryInjector)(Loader);
   };
 }
