@@ -54,6 +54,12 @@ export default function loaderFactory(actionsList, requestStates) {
           } else if (activeRequests instanceof Object) { // works as else if
             return requestStates
                     .some(state => Object.keys(activeRequests).includes(state));
+          } else {
+            console.warn(
+              'Loader: did not receive a valid requestStates object: ',
+              requestStates
+            );
+            return false;
           }
         })();
 
