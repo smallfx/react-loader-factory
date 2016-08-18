@@ -46,14 +46,19 @@ export default function loaderFactory(actionsList, requestStates) {
           }
         });
 
-        // monitor given request states
+        let requestsBusy = false;
         // monitor given request states
         if (activeRequests instanceof Array) {
-          const requestsBusy = requestStates
-                  .some(state => activeRequests.includes(state));
+          requestsBusy = requestStates
+            .some(state => activeRequests.includes(state));
         } else if (activeRequests instanceof Object) { // works as else if
-          const requestsBusy = requestStates
-                  .some(state => Object.keys(activeRequests).includes(state));
+          requestsBusy = requestStates
+            .some(state => Object.keys(activeRequests).includes(state));
+        } else {
+          console.warn(
+            'Loader: did not receive a valid requestStates object: ',
+            requestStates
+          );
         }
         
         // return function that takes a component which will be rendered when

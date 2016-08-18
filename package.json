@@ -1,6 +1,6 @@
 {
   "name": "react-loader-factory",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A factory for creating custom functional react loading screen components.",
   "main": "./dist/index.js",
   "scripts": {
