@@ -33,23 +33,23 @@ export default function loaderFactory(actionsList, requestStates, stateInjector)
         super(props);
 
         this.currentRequests = [];
+        this.needsDispatch = true;
       }
 
       render() {
         const { activeRequests, dispatch } = this.props;
-        let justDispatched = false;
         // call actions, but throttle if repeating
         actionsList.forEach(action => {
           if (!deepIncludes(shallowDesymbolize(this.currentRequests),
                             shallowDesymbolize(action))) {
             this.currentRequests.push(action);
             dispatch(action);
-            justDispatched = true;
+            justDispatched = false;
           }
         });
 
         // monitor given request states
-        const requestsBusy = justDispatched ? true : (() => {
+        const requestsBusy = (!this.needsDispatch) ? true : (() => {
           if (activeRequests instanceof Array) {
             return requestStates
                     .some(state => activeRequests.includes(state));
