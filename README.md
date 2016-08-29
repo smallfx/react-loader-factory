@@ -91,6 +91,19 @@ pass into the returned loading component.
    throbber component gets out of the way and returns the originally wrapped
    component, with all props passed through.
 
+### Optional state injector
+You can pass in a function to the loader factory that accepts the state as the
+third argument to loaderFactory. The function should return an `Object` with
+an `activeRequests` property which should be an array of active request strings.
+
+```js
+const actionsList = [myAsyncAction()];
+const monitoredStates = ['ASYNC_REQUEST'];
+const loaderWrapper = loaderFactory(actionsList, monitoredStates, function(state){
+	return { activeRequests: state['myCoolKey'] };
+});
+```
+
 ### Why a factory?
 
 The factory pattern is needed to set up the `connect()` call that hooks the

@@ -20,13 +20,13 @@ function shallowDesymbolize(obj) {
   return obj;
 }
 
-export default function loaderFactory(actionsList, requestStates) {
+export default function loaderFactory(actionsList, requestStates, stateInjector) {
 
   return function(WrappedComponent) {
 
-    function factoryInjector(state) {
+    const factoryInjector = stateInjector || function(state) {
       return { activeRequests: state.get('activeRequests').toJS() };
-    }
+    };
 
     class Loader extends React.Component {
       constructor(props) {
