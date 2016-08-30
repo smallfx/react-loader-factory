@@ -38,18 +38,9 @@ export default function loaderFactory(actionsList, requestStates, stateInjector)
 
       render() {
         const { activeRequests, dispatch } = this.props;
-        // call actions, but throttle if repeating
-        actionsList.forEach(action => {
-          if (!deepIncludes(shallowDesymbolize(this.currentRequests),
-                            shallowDesymbolize(action))) {
-            this.currentRequests.push(action);
-            dispatch(action);
-            this.needsDispatch = false;
-          }
-        });
 
         // monitor given request states
-        const requestsBusy = (!this.needsDispatch) ? true : (() => {
+        const requestsBusy = this.needsDispatch || (() => {
           if (activeRequests instanceof Array) {
             return requestStates
                     .some(state => activeRequests.includes(state));
@@ -64,6 +55,16 @@ export default function loaderFactory(actionsList, requestStates, stateInjector)
             return false;
           }
         })();
+
+        // call actions, but throttle if repeating
+        actionsList.forEach(action => {
+          if (!deepIncludes(shallowDesymbolize(this.currentRequests),
+                            shallowDesymbolize(action))) {
+            this.currentRequests.push(action);
+            dispatch(action);
+            this.needsDispatch = false;
+          }
+        });
 
         // return function that takes a component which will be rendered when
         // none of the request states is active
