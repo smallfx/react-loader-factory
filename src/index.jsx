@@ -44,7 +44,7 @@ export default function loaderFactory(actionsList, requestStates, stateInjector)
                             shallowDesymbolize(action))) {
             this.currentRequests.push(action);
             dispatch(action);
-            justDispatched = false;
+            this.needsDispatch = false;
           }
         });
 
