@@ -21,7 +21,7 @@ function shallowDesymbolize(obj) {
 }
 
 export default function loaderFactory(actionsList, requestStates, stateInjector, stateDependencies) {
-  if (stateDependencies === undefined) { stateDependencies = function() { return true; } }
+  if (stateDependencies === undefined) { stateDependencies = function() { return false; } }
 
   return function(WrappedComponent) {
 
