@@ -70,9 +70,10 @@ export default function loaderFactory(actionsList, requestStates, stateInjector,
                             shallowDesymbolize(action))) {
             this.currentRequests.push(action);
             dispatch(action);
-            this.needsDispatch = false;
           }
         });
+        // needsDispatch should be "true" only for the first render pass
+        this.needsDispatch = false;
 
         // return function that takes a component which will be rendered when
         // none of the request states is active
