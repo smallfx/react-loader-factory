@@ -20,12 +20,18 @@ function shallowDesymbolize(obj) {
   return obj;
 }
 
-export default function loaderFactory(actionsList, requestStates, stateInjector) {
+export default function loaderFactory(actionsList, requestStates, stateInjector, stateDependencies) {
+  if (stateDependencies === undefined) { stateDependencies = function() { return true; } }
 
   return function(WrappedComponent) {
 
     const factoryInjector = stateInjector || function(state) {
       return { activeRequests: state.get('activeRequests').toJS() };
+    };
+    const waitInjector = function(state) {
+      return Object.assign(factoryInjector(state), {
+        waitingOnStore: stateDependencies(state)
+      });
     };
 
     class Loader extends React.Component {
@@ -39,8 +45,12 @@ export default function loaderFactory(actionsList, requestStates, stateInjector)
       render() {
         const { activeRequests, dispatch } = this.props;
 
+        console.log('proppes', this.props);
+
         // monitor given request states
-        const requestsBusy = this.needsDispatch || (() => {
+        const requestsBusy = this.needsDispatch ||
+                             this.props.waitingOnStore ||
+                             (function() {
           if (activeRequests instanceof Array) {
             return requestStates
                     .some(state => activeRequests.includes(state));
@@ -91,6 +101,6 @@ export default function loaderFactory(actionsList, requestStates, stateInjector)
       }
     }
 
-    return connect(factoryInjector)(Loader);
+    return connect(waitInjector)(Loader);
   };
 }
