@@ -45,8 +45,6 @@ export default function loaderFactory(actionsList, requestStates, stateInjector,
       render() {
         const { activeRequests, dispatch } = this.props;
 
-        console.log('proppes', this.props);
-
         // monitor given request states
         const requestsBusy = this.needsDispatch ||
                              this.props.waitingOnStore ||
